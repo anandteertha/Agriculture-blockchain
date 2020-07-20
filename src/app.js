@@ -69,15 +69,53 @@ App = {
   },
 
 
+
+
+  renderTasks: async() => {
+    const number_of_farmers = await App.agriculture.number_of_farmers()
+    const farmers = await App.agriculture.farmers_dict(number_of_farmers)
+
+    const adhar = farmers[1]
+    const name = farmers[2]
+    const state = farmers[7]
+
+    const $create_an_account = $('.create_an_account')
+    $create_an_account.find('.content1').html("NAME: "+name)
+    $create_an_account.find('.content3').html("ADHAR NUMBER: "+adhar)
+    $create_an_account.find('.content4').html("STATE: "+state)
+
+
+  },
+
+
   loadContract: async () => {
     // Create a JavaScript version of the smart contract
-    const charity = await $.getJSON('charity.json')
-    App.contracts.charity = TruffleContract(charity)
-    App.contracts.charity.setProvider(App.web3Provider)
+    const agriculture = await $.getJSON('agriculture.json')
+    App.contracts.agriculture = TruffleContract(agriculture)
+    App.contracts.agriculture.setProvider(App.web3Provider)
 
     // Hydrate the smart contract with values from the blockchain
-    App.charity = await App.contracts.charity.deployed()
+    App.agriculture = await App.contracts.agriculture.deployed()
   },
+
+  createAccount: async() => {
+
+    window.alert("inside createAccount()")
+
+    var name = $('#name').val()
+    var username = $('#username').val()
+    var adhar = $('#adhar').val()
+    var state = $('#state').val()
+    //var address = $('address').val()
+    var bankaccount = $('#bankaccount').val()
+    var acreOfLand = $('#acreOfLand').val()
+
+    await App.agriculture.createFarmerAccount(adhar,name,bankaccount,acreOfLand,state)
+    window.alert("after calling the farmer function")
+    window.reload()
+
+
+  }
 
 
 }

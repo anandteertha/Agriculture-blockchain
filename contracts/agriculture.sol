@@ -5,13 +5,13 @@ contract agriculture {
 
   struct farmer {
     uint id;
-    uint adhar_number;
+    string adhar_number;
     string name_of_farmer;
-    string address_of_farmer;
+    //string address_of_farmer;
     bool validity;  //is he eligible to to get the goverment's money
     string info; //information provided by the goverment regarding the payment of money.
     string bank_account;
-    uint acre_of_land;  //the acre of land the farmer owns
+    string acre_of_land;  //the acre of land the farmer owns
     string residence_sate;  //the state where his farm belongs.
   }
 
@@ -43,8 +43,8 @@ contract agriculture {
 
   uint lastcheckForValidity_numberOfFarmers = 0;
 
-  function createFarmerAccount(uint _adhar_number,string memory _name_of_farmer,string memory _address_of_farmer,
-                                string memory _bank_account ,uint _acre_of_land,string memory _state_of_residence) public
+  function createFarmerAccount(string memory _adhar_number,string memory _name_of_farmer,
+                                string memory _bank_account ,string memory _acre_of_land,string memory _state_of_residence) public
 
         {
 
@@ -52,7 +52,7 @@ contract agriculture {
             number_of_farmers++;
             farmers_dict[number_of_farmers].adhar_number = _adhar_number;
             farmers_dict[number_of_farmers].name_of_farmer = _name_of_farmer;
-            farmers_dict[number_of_farmers].address_of_farmer = _address_of_farmer;
+            //farmers_dict[number_of_farmers].address_of_farmer = _address_of_farmer;
             farmers_dict[number_of_farmers].bank_account = _bank_account;
             farmers_dict[number_of_farmers].acre_of_land = _acre_of_land;
             farmers_dict[number_of_farmers].residence_sate = _state_of_residence;
