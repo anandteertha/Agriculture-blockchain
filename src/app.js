@@ -73,18 +73,20 @@ App = {
 
   renderTasks: async() => {
     const number_of_farmers = await App.agriculture.number_of_farmers()
-    const farmers = await App.agriculture.farmers_dict(number_of_farmers)
-
+    const current_account_number = await App.agriculture.current_account_id()
+    const farmers = await App.agriculture.farmers_dict(current_account_number)
+    const database = await App.agriculture.database_accounts(current_account_number)
     const adhar = farmers[1]
     const name = farmers[2]
     const state = farmers[7]
-
+    const username = database[1]
+    const info = farmers[4]
     const $create_an_account = $('.create_an_account')
     $create_an_account.find('.content1').html("NAME: "+name)
     $create_an_account.find('.content3').html("ADHAR NUMBER: "+adhar)
     $create_an_account.find('.content4').html("STATE: "+state)
-
-
+    $create_an_account.find('.content2').html("USERNAME: "+username)
+    $create_an_account.find('.content5').html("INFO: "+info)
   },
 
 
@@ -109,13 +111,35 @@ App = {
     //var address = $('address').val()
     var bankaccount = $('#bankaccount').val()
     var acreOfLand = $('#acreOfLand').val()
+    var password = $('#password').val()
+    await App.agriculture.createFarmerAccount(adhar,name,bankaccount,acreOfLand,state);
 
-    await App.agriculture.createFarmerAccount(adhar,name,bankaccount,acreOfLand,state)
+    //await App.agriculture.databaseAccount(username,password);
+
     window.alert("after calling the farmer function")
     window.reload()
 
 
+  },
+
+  databaseAccount: async() => {
+    var username = $('#username').val()
+    var password = $('#password').val()
+    await App.agriculture.databaseAccount(username,password);
+
+  },
+
+  login: async() => {
+
+    var username = $('#username').val()
+    var password = $('#password').val()
+
+    await App.agriculture.login(username,password)
+    window.reload()
+
+
   }
+
 
 
 }
