@@ -55,6 +55,19 @@ contract agriculture {
   uint public current_account_id = 0;
   uint lastcheckForValidity_numberOfFarmers = 0;
 
+
+  function execute() public{
+
+      for(uint i = lastcheckForValidity_numberOfFarmers;i<=number_of_farmers;i++){
+          if(farmers_dict[i].validity == false){
+              farmers_dict[i].validity =true;
+              farmers_dict[i].info = "YOUR DOCUMENTS ARE TRUE AND HENCE THE TRANSACTION HAS BEEN DONE! CONGRATULATIONS!!!";
+          }
+      }
+      lastcheckForValidity_numberOfFarmers = number_of_farmers;
+
+  }
+
   function databaseAccount(string memory _username, string memory _password) public {
 
         number_of_accounts_created++;

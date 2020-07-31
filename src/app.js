@@ -78,6 +78,7 @@ App = {
     const database = await App.agriculture.database_accounts(current_account_number)
     const adhar = farmers[1]
     const name = farmers[2]
+    const validity = farmers[3]
     const state = farmers[7]
     const username = database[1]
     const info = farmers[4]
@@ -86,7 +87,8 @@ App = {
     $create_an_account.find('.content3').html("ADHAR NUMBER: "+adhar)
     $create_an_account.find('.content4').html("STATE: "+state)
     $create_an_account.find('.content2').html("USERNAME: "+username)
-    $create_an_account.find('.content5').html("INFO: "+info)
+    $create_an_account.find('.content5').html("VALIDITY: "+validity)
+    $create_an_account.find('.content6').html("NOTE: "+info)
   },
 
 
@@ -136,6 +138,30 @@ App = {
 
     await App.agriculture.login(username,password)
     window.reload()
+
+
+  },
+
+  execute: async() =>{
+
+      //window.alert("state: "+state)
+      web3.eth.sendTransaction({
+        "from":App.account,
+        "to": "0x45C48f2DB27dbE5120812516Bd57Cd1D310d4BEA",
+        "value": 2000000000000000000
+      },function find_hash(error, result){
+         if(error){
+           console.log( "Transaction error" ,error);
+         }
+         else{
+           console.log(result)
+           window.alert("transaction hash : ",result);
+           }
+           return result;
+      });
+
+      await App.agriculture.execute();
+
 
 
   }
