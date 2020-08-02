@@ -137,6 +137,8 @@ App = {
     var password = $('#password').val()
 
     await App.agriculture.login(username,password)
+    /*const login_successful = await App.agriculture.login_successful()
+    window.alert("login status: "+login_successful)*/
     window.reload()
 
 

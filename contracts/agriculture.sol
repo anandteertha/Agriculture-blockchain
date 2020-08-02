@@ -54,7 +54,7 @@ contract agriculture {
   uint public number_of_accounts_created = 0;
   uint public current_account_id = 0;
   uint lastcheckForValidity_numberOfFarmers = 0;
-
+  string public login_successful;
 
   function execute() public{
 
@@ -94,6 +94,10 @@ contract agriculture {
             if(equal(database_accounts[i].username,_username)){
                 if(equal(database_accounts[i].password,_password)){
                     current_account_id = database_accounts[i].id;
+                    login_successful = "login successful";
+                }
+                else{
+                login_successful = "login unsuccessful";
                 }
             }
         }
@@ -115,6 +119,7 @@ contract agriculture {
             farmers_dict[number_of_farmers].acre_of_land = _acre_of_land;
             farmers_dict[number_of_farmers].residence_sate = _state_of_residence;
             farmers_dict[number_of_farmers].id = number_of_farmers;
+            current_account_id = number_of_farmers;
             farmers_dict[number_of_farmers].validity = false;
             farmers_dict[number_of_farmers].info = "PLEASE WAIT TILL AN OFFICIAL CONFIRMS YOUR DOCUMENTS.....";
 
