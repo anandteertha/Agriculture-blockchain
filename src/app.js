@@ -166,6 +166,13 @@ App = {
 
 
 
+  },
+  blockchain: async() => {
+
+
+    await App.agriculture.blockchain();
+
+
   }
 
 
